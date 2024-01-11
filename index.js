@@ -57,16 +57,17 @@ Car.prototype.toString = function(){
 	return `${brand} ${model} ${year} - ${fuelType}`;
 }
 // Cтворюємо метод accelerate для прискорення швидкості прототипу Car, збільшує this.speed на передане число та виводить рядок в консоль: Автомобіль <brand> <model> прискорився до швидкості <speed> км/год
-Car.prototype.accelerate = function() {
-	this.speed += n;
+Car.prototype.accelerate = function(acceleration) {
+	this.speed += acceleration;
 	console.log(`Автомобіль ${brand} ${model} прискорився до швидкості ${speed} км/год`);
 }
 // Метод brake для гальмування прототипу Car,зменшує this.speed на передане число та виводить рядок в консоль в консоль: Автомобіль <brand> <model> зменшив до швидкості <speed> км/год
-Car.prototype.brake = function() {
-	this.speed -= n;
+Car.prototype.brake = function(braking) {
+	this.speed -= braking;
 	console.log(`Автомобіль ${brand} ${model} зменшив до швидкості ${speed} км/год`);
 }
 // Створюємо новий екземпляр об'єкта Car
+let car = new Car ("Audi", "A6", 2018, 30000, "Petrol", 0)
 /*
  * Екземпляр об'єкту: Car
  * Властивості:
@@ -82,11 +83,12 @@ Car.prototype.brake = function() {
  */
 
 // Викличемо функції toString та valueOf об'єкта car
-Car.prototype.toString(Vehicle.valueOf) 
+console.log(car.toString());
+console.log(car.valueOf());
 // Використовуємо методи для прискорення та передаємо 50
-Car.accelerate(n = 50);
+car.acceleration(50);
 // Використовуємо методи для гальмування та передаємо 20
-Car.brake(n = 20);
+car.braking(20);
 
 /*
  * Функція конструктор Truck
@@ -120,9 +122,9 @@ function Truck(
   transmissionType,
   doors,
   weight
-) {
+) 
   // Викликаємо Vehicle.call та передаємо в нього: this, brand, model, year, mileage
-  Vehicle.call(this, brand, model, year, mileage) {
+  {Vehicle.call(this, brand, model, year, mileage); 
   //  Записуєм в this.color значення аргументу color, в this.engineType значення аргументу engineType і так далі зі всіми аргументами
   this.color = color;
   this.engineType = engineType;
@@ -132,13 +134,15 @@ function Truck(
   this.doors = doors;
   this.weight = weight;
 }
-}
-
 // Додатковий метод specific для прототипу Trucks, примає число якщо воно більше towingCapacity виводить рядок в консоль: Навантаження занадто важке для буксирування, якщо ні то рядок Тягнення навантаження...
-Truck.prototype.specific = function() {
-	this.weight > this.towingCapacity ? "Навантаження занадто важке для буксирування" || "Тягнення навантаження..."
+Truck.prototype.specific = function(weights) {
+	if(weights > this.towingCapacity) {
+	console.log("Навантаження занадто важке для буксирування")}
+	else {
+		console.log("Тягнення навантаження...")}
 }
 // Створюємо новий екземпляр об'єкта Truck
+let truck = new Truck ("Toyota", "Tundra", 2019, 20000, "Red", "V8", 10000, "Gasoline", "Automatic", 4, 5600);
 /*
  * Екземпляр об'єкту: myTruck
  * Властивості:
@@ -159,19 +163,19 @@ Truck.prototype.specific = function() {
  */
 
 // Викликаємо метод tow з вагою меншою за towingCapacity
-Truck.tow(this.weight < this.towingCapacity);  ///????
+console.log(Truck.tow(weights < this.towingCapacity));
 // Викликаємо метод tow з вагою більшою за towingCapacity
-Truck.tow(this.weight > this.towingCapacity);   ////????
+console.log(Truck.tow(weights > this.towingCapacity)); 
 // Додаємо метод drive для прототипу Car, який збільшує kilometers на передане число, та виводить Подорожуємо <kilometers> кілометрів у <brand> <model>.
-Car.prototype.drive = function(){
-	this.kilometers += k;
+Car.prototype.drive = function(fastening){
+	this.kilometers += fastening;
 	console.log(`Подорожуємо ${kilometers} кілометрів у ${brand} ${model}`);
 }
 // Використовуємо bind для зв'язування методу drive з конкретним об'єктом car.
 // Це створює нову функцію, в якій this постійно встановлено на car, незалежно від того, як функцію викликають.
-Car.drive.bind(this, k);  ////?????
+console.log(Truck.drive.bind(this.car, fastening))
 // Викликаємо функцію зі значенням 100,
-Car.drive.bind(this, 100); ////?????
+console.log(Truck.drive(this.car, 100))
 /*
  * Функція конструктор: ElectricCar
  * Властивості:
@@ -184,7 +188,6 @@ Car.drive.bind(this, 100); ////?????
  * | mileage       |
  * | batteryCapacity|
  */
-
 function ElectricCar(brand, model, year, mileage, batteryCapacity) {
   // Перевіряємо, чи функцію було викликано з new, якщо ні виволимо помилку "Конструктор має бути викликаний з 'new'"
   if(!isNew ){
